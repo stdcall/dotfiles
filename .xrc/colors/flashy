@@ -1,0 +1,33 @@
+!black
+URxvt.color0 : #222222
+URxvt.color8 : #454545
+
+!red
+URxvt.color1 : #F92672
+URxvt.color9 : #F92672
+
+!green
+URxvt.color2 : #A6E22E
+URxvt.color10: #A6E22E
+
+!yellow
+URxvt.color3 : #FD971F
+URxvt.color11: #FD971F
+
+!blue
+URxvt.color4 : #4682B4
+URxvt.color12: #4682B4
+
+!magenta
+URxvt.color5 : #AE81FF
+URxvt.color13: #AE81FF
+
+!cyan
+URxvt.color6: #89b6e2
+URxvt.color14: #46a4ff
+
+!white
+URxvt.color7 : #FFFFFF
+URxvt.color15: #FFFFFF
+
+! vim: ft=xdefaults

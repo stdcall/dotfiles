@@ -1,0 +1,40 @@
+FONT="-*-montecarlo-medium-r-normal-*-11-*-*-*-*-*-*-*"
+#Layout
+if [ -n "$DISPLAY" ]; then
+  SCREEN_RESOLUTION=($(xdpyinfo | grep dimensions | tr x ' ' | awk '{print $2,$3}'))
+  SCREEN_WIDTH=${SCREEN_RESOLUTION[0]}
+  SCREEN_HEIGHT=${SCREEN_RESOLUTION[1]}
+fi
+dzenHeight=16
+XmonadDzenWidth=500
+HEIGHT=$dzenHeight
+Y_POS=0
+DATE_WIDTH=191
+DATE_X_POS=$(echo "$SCREEN_WIDTH - $DATE_WIDTH" | bc -l)
+TOPSTATUSBAR_X_POS=$XmonadDzenWidth
+TOPSTATUSBAR_WIDTH=$(echo "$SCREEN_WIDTH - $TOPSTATUSBAR_X_POS - $DATE_WIDTH" | bc)
+TRAY_MARGIN=$DATE_WIDTH
+
+#Colors
+FOREGROUND="#516650"
+BACKGROUND="#1a1a1a"
+DZEN_BG=$BACKGROUND
+DZEN_FG=$FOREGROUND
+DZEN_FG2="#5f656b"
+Layout_BG=$DZEN_BG
+Layout_FG="#60a0c0"
+SELECTED_BACKGROUND="#81bc7e"
+
+CRIT="#d74b73"
+BAR_FG=$SELECTED_BACKGROUND
+BAR_BG="#363636"
+COLOR_ICON=$SELECTED_BACKGROUND
+COLOR_SEP="#007b8c"
+
+export dzenHeight
+export XmonadDzenWidth
+export FONT
+export SELECTED_BACKGROUND
+export DZEN_FG
+export DZEN_BG
+# vim: ft=sh

@@ -1,0 +1,2 @@
+#!/bin/sh
+wine $HOME/games/Warcraft\ III/Frozen\ Throne.exe -opengl $@#-window

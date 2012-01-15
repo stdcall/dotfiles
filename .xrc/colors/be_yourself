@@ -1,0 +1,28 @@
+! Be Yourself
+! Black
+URxvt.color0: #313131
+URxvt.color8: #5b5b5b
+! Red
+URxvt.color1: #de4552
+URxvt.color9: #de6e77
+! Green
+URxvt.color2: #8aa235
+URxvt.color10: #a0b45a
+! Yellow
+URxvt.color3: #e97d18
+URxvt.color11: #e99c54
+! Blue
+URxvt.color4: #4b7276
+URxvt.color12: #79b8be
+! Purple
+URxvt.color5: #6f2861
+URxvt.color13: #cf4eb5
+! Cyan
+URxvt.color6: #4db9d7
+URxvt.color14: #77d7e7
+!URxvt.color14: #46a4ff
+! White
+URxvt.color7: #a9a9a9
+URxvt.color15: #e0e0e0
+
+! vim: ft=xdefaults

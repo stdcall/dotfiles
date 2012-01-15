@@ -1,0 +1,16 @@
+background no
+out_to_console yes
+out_to_x no
+update_interval 1.0
+update_interval_on_battery 1.0
+TEXT
+${cpu cpu1}|\
+${cpu cpu2}|\
+${freq_g}|\
+${mem}|\
+${memperc}|\
+${uptime_short}|\
+${mpd_status}|\
+${mpd_artist}|\
+${mpd_title}|\
+${mails /home/scriper/Maildir/default 120.0}|

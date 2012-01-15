@@ -1,0 +1,47 @@
+!Ubuntu fonts:
+!URxvt.font: xft:Ubuntu Mono:style=Regular:hintstyle=hintslight:size=13
+!URxvt.keysym.M-0xffab: command: \033]50;xft:Ubuntu Mono:style=Regular:hintstyle:hintslight:size=14\007
+!URxvt.keysym.M-0xffad: command: \033]50;xft:Ubuntu Mono:style=Regular:hintstyle:hintslight:size=13\007 
+
+!misc-fixed font:
+URxvt.font: -misc-fixed-medium-r-normal-*-12-120-75-75-c-0-iso10646-1
+URxvt.keysym.M-0xffab: command: \033]50;-misc-fixed-medium-r-normal-*-12-120-75-75-c-0-iso10646-1\007
+URxvt.keysym.M-0xffad: command: \033]50;-misc-fixed-medium-r-semicondensed-*-12-110-*-*-*-*-iso10646-1\007 
+
+! terminus font:
+!URxvt.font: -*-terminus-*-*-*-*-12-*-*-*-*-*-iso10646-*
+!URxvt.keysym.M-0xffab: command: \033]50;-*-terminus-medium-*-normal-*-14-*-*-*-*-*-iso10646-*\007
+!URxvt.keysym.M-0xffad: command: \033]50;-*-terminus-*-*-*-*-12-*-*-*-*-*-iso10646-*\007 
+
+URxvt.keysym.C-Page_Up:     \033[5;5~
+URxvt.keysym.C-Page_Down:   \033[6;5~
+
+URxvt.savelines: 40000
+URxvt.perl-ext-common:  default,matcher
+URxvt.urlLauncher:      /usr/bin/firefox
+URxvt.matcher.button:   1 
+
+URxvt.scrollstyle: plain
+URxvt.scrollBar: true
+URxvt.scrollBar_right: true
+URxvt.thickness: 1
+URxvt.scrollBar_floating: true
+
+URxvt.depth: 32
+URxvt.background: #1a1a1a
+URxvt.foreground: #516650
+URxvt.scrollWithBuffer: true
+URxvt.scrollTtyOutput: false
+URxvt.scrollTtyKeypress: true
+URxvt.scrollColor: #516650
+URxvt.intensityStyles: true
+URxvt.cursorBlink: false
+
+URxvt.colorIT:      #87af5f
+URxvt.colorBD:      #d7d7d7
+URxvt.colorUL:      #87afd7
+
+URxvt.fading: 5
+URxvt.fadeColor: #3c8fb5
+URxvt.troughColor: #3aacd2
+! vim: ft=xdefaults

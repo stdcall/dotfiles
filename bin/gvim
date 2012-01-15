@@ -1,0 +1,3 @@
+#!/bin/bash
+SHELL=/bin/bash
+/usr/bin/gvim $@

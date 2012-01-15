@@ -1,0 +1,66 @@
+SHELL=/bin/bash
+LOGNAME=$HOME/.procmaillog
+SENDMAIL=/usr/bin/sendmail
+MAILDIR=$HOME/Maildir/           
+DEFAULT=$HOME/Maildir/default
+LOGABSTRACT=no
+VERBOSE=no
+DROPPRIVS=yes
+HOSTNAME=ngsrv.local
+
+FORMAIL=/usr/bin/formail
+:0 Whc: .msgid.lock
+| $FORMAIL -D 16384 .msgid.cache
+
+# As listed in the Mutt docs to convert old-style PGP messages to MIME
+:0
+* !^Content-Type: multipart/
+* !^Content-Type: application/pgp
+{
+    :0 fBw
+    * ^-----BEGIN PGP MESSAGE-----
+    * ^-----END PGP MESSAGE-----
+    | formail \
+     -i "Content-Type: application/pgp; format=text; x-action=encrypt"
+
+    :0 fBw
+    * ^-----BEGIN PGP SIGNED MESSAGE-----
+    * ^-----BEGIN PGP SIGNATURE-----
+    * ^-----END PGP SIGNATURE-----
+    | formail \
+     -i "Content-Type: application/pgp; format=text; x-action=sign"
+}
+
+# duplicate messages
+#:0 a
+#$MAILDIR/duplicates/
+
+# I do really HATE spam :-E
+# btw, spamc + spamd workd MUCH FASTER
+# than spamassassin w/out spamd
+:0fw: spamassassin.lock
+| /usr/bin/spamc
+
+:0:
+* ^X-Spam-Status: Yes
+junk/
+
+# Fucking html-letters goes to junk/ 
+:0
+* ^Content-Type:.*html
+junk/
+
+#lists
+:0
+* ^List-Id:.*ruby-talk
+ruby-talk/
+
+:0
+* ^List-ID:.*yesodweb
+yesodweb/
+
+# And by default message goes to /default/ maildir (new/ subfolder)
+:0
+* .*
+$MAILDIR/default/
+

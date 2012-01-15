@@ -1,0 +1,7 @@
+#!/bin/bash
+source $HOME/.scripts/theme
+FONT="-fn ${FONT}"
+COLORS="-nb ${BACKGROUND} -nf ${FOREGROUND} -sf ${FOREGROUND} -sb ${SELECTED_BACKGROUND}"
+MISC="-i -b"
+PARAMS="${FONT} ${COLORS} ${MISC}"
+`dmenu_path | yeganesh -- $PARAMS` && eval "exec $exe"

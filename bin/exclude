@@ -1,0 +1,13 @@
+data
+dev
+boot
+usr
+opt
+home
+"lost+found"
+tmp
+var
+media
+mnt
+sys
+proc

@@ -1,0 +1,89 @@
+source ~/.mutt/headers.mutt
+source ~/.mutt/gpg.mutt
+source ~/.mutt/bindings.mutt
+source ~/.mutt/aliases.mutt
+source ~/.mutt/hooks.mutt
+source ~/.mutt/folders.mutt
+source ~/.mutt/sidebar.mutt
+source ~/.mutt/themes/awesome
+set alias_file=~/.mutt/aliases.mutt 
+
+set folder=~/Maildir
+set spoolfile=~/Maildir/default
+set mbox=~/Maildir/default
+set postponed=~/Maildir/postponed
+set record=~/Maildir/sent
+set query_command = "abook --mutt-query '%s'"
+set shell="/bin/bash"
+set realname="Nikolay Khodyunya" 
+set charset=utf-8      # Local charset
+set send_charset="utf-8" 
+set sendmail="/usr/bin/sendmail"
+set mbox_type="Maildir"
+set use_from=no         # I want to generate "From:" using my_hdr
+set attribution="On %d, %n wrote:" # Quoting subject
+set editor="vim +':set textwidth=72' %s"
+unset markers
+set delete=yes          # purge deleted messages without asking
+set copy=ask-no         # ask to save a copy of outgoing message?
+set postpone=ask-no     # ask to postpone message if i want to
+set print=ask-yes       # ask for printing message if i want to
+set record=ask-no       # ask to save sent message into 'sent' mailbox
+set include=yes         # include the message in replies (reply quoting)
+set quit=ask-yes        # Do you REALLY want to exit mutt? :)
+set recall=ask-yes      # ask for working with unsent messages 
+set reply_regexp= "^(re|RE|Re):[ \t]*"
+#set use_from=no
+#set status_on_top      # status on top
+#unset save_empty       # remove mbox when last message is removed. sucks with maildir
+unset confirmappend     # prompt for confirm when appending message to ex. mbox
+set allow_8bit          # encoding
+set check_new           # search for new messages
+set abort_nosubject=no  # Abort, if message has no subject
+#set hide_limited=yes
+#set arrow_cursor       # little arrow instead of line-marker
+set attach_split        # do not merge attaches into one file?
+set fast_reply          # do not asr For:, To:, Subj:, then replying
+set fcc_attach          # keep attaches then doing Fcc:
+set followup_to         # add Mail-Followup-To header, for maillists
+unset metoo             # do not send reply to myself when replyin' to group
+unset reply_self        # do not reply myself after all
+unset read_only         # I wanna r/w access to my mailboxes
+unset collapse_unread   # do not collapse threads with new mail
+unset mark_old          # unread old messages are still unread after quitting
+set suspend             # allow Ctrl-Z to shutdown mutt
+unset beep              # fuckin' noizy pc-speaker
+unset beep_new
+set askcc=no            # ask for cc when creating new message?
+set print_command="muttprint" 
+set signature="~/.mutt/scripts/signature|"  # This is a script executable
+set forward_format="Fwd: %s"
+set help
+# MIME types handering - - -  - - - - - - - - - - - - - - - - - - - - - - #
+set implicit_autoview   # try to understand MIME types
+alternative_order text/enriched text/plain text/html
+
+
+set mailcap_path="~/.mailcap"   # see MIME types in mailcap database
+set mailcap_sanitize=yes        # remove mailcap ugly chars
+set pager=builtin
+set pager_context=1
+set menu_scroll
+set narrow_tree         # To make deep threads to fit on the screen
+set pager_stop          # don't show the next msg after current
+set user_agent = no # let them take fake useragent from my_hdr above
+
+
+set status_format="%v  [%f] [%m msgs (%l), %n new, %p unsent, %d deleted]"
+set folder_format="%N %F %2l %-8.8u %-8.8g %8s %d %f"
+set index_format="%3C %Z %{%b %d} %-20.20L (%?l?%4l&%4c?) %s"
+
+set sort=threads        # sorting the mails in threads
+set sort_aux=date-sent  # sort brother mails inside threads
+
+
+unlists *
+unsubscribe *
+lists   ruby-talk yesodweb 
+subscribe ruby-talk yesodweb
+

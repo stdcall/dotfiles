@@ -1,0 +1,1 @@
+/home/scriper/.vim/bundle/vam/doc/vim-addon-manager.txt

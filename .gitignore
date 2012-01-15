@@ -1,0 +1,13 @@
+*.log
+.fonts/fonts.dir
+.fonts/fonts.scale
+.pentadactyl/info
+.vim/.netrwhist
+.vim/cache
+.vim/bundle
+.vim/lastSession.vim
+.vim/doc/tags
+.config/fish/fish_*
+.config/fish/fishd*
+.xmonad/*
+!.xmonad/xmonad.hs

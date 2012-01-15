@@ -1,0 +1,10 @@
+#include "/home/scriper/.xrc/urxvt"
+#include "/home/scriper/.xrc/colors/current"
+#include "/home/scriper/.xrc/xfontsel"
+#include "/home/scriper/.xrc/xmessage"
+#include "/home/scriper/.xrc/xv"
+#include "/home/scriper/.xrc/xman"
+Xcursor.theme: Vanilla-DMZ
+Xterm*font: -misc-fixed-medium-r-normal-*-12-120-75-75-c-0-iso10646-1
+*background: #1a1a1a
+*foreground: #516650

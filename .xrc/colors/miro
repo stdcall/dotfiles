@@ -1,0 +1,31 @@
+!---------------------------------------------------!
+! file: .colours/nu !
+! author: Miro Algo <miroalgo.deviantart.com> !
+!---------------------------------------------------!
+
+! Black ------------------------------------------- !
+URxvt.color0: #404040
+URxvt.color8: #505050
+! Red --------------------------------------------- !
+URxvt.color1: #f03669
+URxvt.color9: #c75b79
+! Green ------------------------------------------- !
+URxvt.color2: #b8e346
+URxvt.color10: #c8e37e
+! Yellow ------------------------------------------ !
+URxvt.color3: #ffa402
+URxvt.color11: #ffbe4a
+! Blue -------------------------------------------- !
+URxvt.color4: #02a2ff
+URxvt.color12: #71cbff
+! Magenta ----------------------------------------- !
+URxvt.color5: #875c8d
+URxvt.color13: #e41f66
+! Cyan -------------------------------------------- !
+URxvt.color6: #6fa9d3
+URxvt.color14: #0078CE
+! White ------------------------------------------- !
+URxvt.color7: #d2d2d2
+URxvt.color15: #ffffff
+
+! vim: ft=xdefaults

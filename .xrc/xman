@@ -1,0 +1,10 @@
+!Xman*Background:          #3F3F3F
+!Xman*Foreground:          #F0DFAF
+Xman*bothShown:           true
+Xman*topBox:              false
+
+Xman*manualFontNormal: -*-terminus-medium-*-normal-*-14-*-*-*-*-*-*-u
+Xman*manualFontBold: -*-terminus-bold-*-normal-*-14-*-*-*-*-*-*-u
+Xman*manualFontItalic: -*-terminus-medium-*-normal-*-14-*-*-*-*-*-*-u
+Xman*directoryFontNormal: -*-terminus-medium-*-normal-*-14-*-*-*-*-*-*-u
+! vim: ft=xdefaults
