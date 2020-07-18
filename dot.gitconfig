@@ -1,0 +1,52 @@
+[alias]
+  co = checkout
+  ci = commit
+  st = status
+  br = branch
+  hist = log --pretty=format:\"%C(bold red black)%h%Creset %Cgreen%ad%Creset %Cblue| %C(yellow)%s%d %C(bold cyan)[%an]\" --graph --date=short
+  type = cat-file -t
+  dump = cat-file -p
+  lsd = ls-files --deleted
+  rmd = !git rm `git ls-files --deleted`
+  files = diff-tree --no-commit-id --name-only -r
+  blya = blame --date=short
+
+[user]
+  name = Nikolay Khodyunya
+  email = nkhodyunya@gmail.com
+
+[github]
+  user = stdcall
+
+[core]
+  autocrlf = false
+  excludesfile = ~/.cvsignore
+  editor = code --wait
+  eol = lf
+
+[push]
+  default = current
+
+[diff]
+  tool = default-difftool
+
+[difftool "default-difftool"]
+  cmd = code --wait --diff $LOCAL $REMOTE
+
+[filter "lfs"]
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge --skip -- %f
+  process = git-lfs filter-process --skip
+  required = true
+
+[lfs "https://github.yandex-team.ru/"]
+  locksverify = false
+
+[fetch]
+  prune = 1
+
+[pager]
+  branch = false
+[rebase]
+	autosquash = true
+	autostash = true

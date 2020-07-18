@@ -1,9 +1,0 @@
-background no
-out_to_console yes
-out_to_x no
-update_interval 1
-total_run_times 0
-
-TEXT
-[${mpd_status} ${if_mpd_playing}- ${mpd_elapsed}/${mpd_length}$endif] *** ^fg(\#909090)${mpd_artist}^fg() *** ^fg(\#909090)${mpd_album}^fg() *** ^fg(\#909090)${mpd_title} *** vol. ${mpd_vol}% *** wifi ${wireless_link_qual_perc wlan0}%
-

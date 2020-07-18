@@ -1,2 +1,0 @@
-#!/bin/bash
-GTK2_RC_FILES="${HOME}/.themes/Zukitwo-Resonance/gtk-2.0/gtkrc" /usr/bin/firefox $@

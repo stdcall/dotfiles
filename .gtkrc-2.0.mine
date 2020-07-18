@@ -1,7 +1,0 @@
-style "font"
-{
-  font_name = "Ubuntu 10"
-}
-widget_class "*" style "font"
-gtk-font-name = "ubuntu 11" 
-gtk-icon-theme-name="Faenza"
