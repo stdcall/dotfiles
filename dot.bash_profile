@@ -3,7 +3,6 @@
 [ -f ~/.bashrc ] && . ~/.bashrc
 [ -f ~/.yarc ] && . ~/.yarc
 
-
 export PKG_CONFIG_PATH="/usr/local/opt/libffi/lib/pkgconfig"
 
 # User specific environment and startup programs
