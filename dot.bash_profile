@@ -40,7 +40,7 @@ export CXXFLAGS=${CFLAGS}
 export MAKEFLAGS="-j5"
 
 export LC_ALL=ru_RU.UTF-8
-export LANG=ru_RU.UTF-8
+export LANG=C
 export LC_MESSAGES=C
 export LANGUAGE=C
 
@@ -58,3 +58,4 @@ fi
 [ -f $br_script ] && . $br_script
 
 [ -f ~/.fzf.bash ] && . ~/.fzf.bash
+[ -f "${GHCUP_INSTALL_BASE_PREFIX:=$HOME}/.ghcup/env" ] && source "${GHCUP_INSTALL_BASE_PREFIX:=$HOME}/.ghcup/env"
