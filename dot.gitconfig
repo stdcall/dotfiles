@@ -50,3 +50,5 @@
 [rebase]
 	autosquash = true
 	autostash = true
+[pull]
+	ff = only

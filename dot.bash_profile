@@ -1,13 +1,8 @@
 # -*- mode: sh; -*-
 
-# Get the aliases and functions
-if [ -f ~/.bashrc ]; then
-    . ~/.bashrc
-fi
+[ -f ~/.bashrc ] && . ~/.bashrc
+[ -f ~/.yarc ] && . ~/.yarc
 
-if [ -f ~/.yarc ]; then
-    . ~/.yarc
-fi
 
 export PKG_CONFIG_PATH="/usr/local/opt/libffi/lib/pkgconfig"
 
@@ -55,5 +50,12 @@ if [ -e $HOME/.nix-profile/etc/profile.d/nix.sh ]; then . $HOME/.nix-profile/etc
 
 export PATH="$HOME/.cargo/bin:$PATH"
 
-if [ -e /Users/nkhodyunya/Library/Preferences/org.dystroy.broot/launcher/bash/br ]; then . /Users/nkhodyunya/Library/Preferences/org.dystroy.broot/launcher/bash/br; fi
-if [ -e /Users/nkhodyunya/.nix-profile/etc/profile.d/nix.sh ]; then . /Users/nkhodyunya/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
+if [[ "$OSTYPE" == "linux-gnu" ]]; then
+  br_script="~/bin/br"
+elif [[ "$OSTYPE" == "darwin"* ]]; then
+  br_script='${HOME}/Library/Preferences/org.dystroy.broot/launcher/bash/br'
+fi
+
+[ -f $br_script ] && . $br_script
+
+[ -f ~/.fzf.bash ] && . ~/.fzf.bash

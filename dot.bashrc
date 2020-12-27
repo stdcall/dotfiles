@@ -112,13 +112,3 @@ if command -v stack > /dev/null 2>&1; then
     stack ghc --package split --package safe --verbosity error -- -e "interact $ unlines . fmap ( $* ) . lines"
   }
 fi
-
-if [[ "$OSTYPE" == "linux-gnu" ]]; then
-  br_script="~/bin/br"
-elif [[ "$OSTYPE" == "darwin"* ]]; then
-  br_script='${HOME}/Library/Preferences/org.dystroy.broot/launcher/bash/br'
-fi
-
-[ -f $br_script ] && source $br_script
-
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
