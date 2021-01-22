@@ -1,6 +1,5 @@
 # -*- mode: sh; -*-
 
-[ -f ~/.bashrc ] && . ~/.bashrc
 [ -f ~/.yarc ] && . ~/.yarc
 
 export PKG_CONFIG_PATH="/usr/local/opt/libffi/lib/pkgconfig"
@@ -59,3 +58,4 @@ fi
 
 [ -f ~/.fzf.bash ] && . ~/.fzf.bash
 [ -f "${GHCUP_INSTALL_BASE_PREFIX:=$HOME}/.ghcup/env" ] && source "${GHCUP_INSTALL_BASE_PREFIX:=$HOME}/.ghcup/env"
+[ -f ~/.bashrc ] && . ~/.bashrc
