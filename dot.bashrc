@@ -4,15 +4,16 @@ if [ -f /etc/bashrc ]; then
   . /etc/bashrc
 fi
 
-stty -ixon # enable C-s for search
+[ -f ~/.yarc ] && . ~/.yarc
+export PS1=" λ \[\e[01;34m\]\W\[\e[00m\] \$(__git_ps1 '[%s]')\$(__arc_ps1) \[\e[01;32m\]→ \[\e[00m\] "
 
-PS1=" λ \[\e[01;34m\]\W\[\e[00m\] \$(__git_ps1 '[%s]') \[\e[01;32m\]→ \[\e[00m\] "
+stty -ixon # enable C-s for search
 
 HISTCONTROL=erasedups:ignorespace
 HISTSIZE=20000
 HISTFILESIZE=20000
 shopt -s histappend
-
+shopt -s direxpand
 shopt -s checkwinsize
 
 # Use arrows for incremental searching
@@ -28,19 +29,16 @@ function kill! {
 
 alias cleantex='rm *.aux *.dvi *.pdfsync *.log'
 alias grep='grep --color=auto'
-alias fgrep='fgrep --color=auto'
-alias egrep='egrep --color=auto'
 alias ec="emacsclient -n -a vim"
 alias vi="vim"
 alias sudo='sudo -E'
 alias ls="ls -hFG --color"
 alias ll="ls -l"
 alias la="ls -A"
-alias wget="wget -c -t 0 --timeout 5"
 alias df="df -h"
 alias du="du -h"
 alias g="git"
-
+alias vf='vim $(rg . | fzf | cut -d ":" -f 1)'
 GPG_TTY=$(tty)
 export GPG_TTY
 #unset SSH_AGENT_PID
@@ -48,20 +46,7 @@ export GPG_TTY
 #    export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
 #fi
 
-if [ -f ~/.aws/secret ]; then
-  . ~/.aws/secret;
-fi
-
-complete -C aws_completer aws
-
-manp()
-{
-  man -t "${1}" | open -f -a emacsclient
-}
-
-#export NODE_PATH=$HOME/opt/node/lib/node_modules
-#if command -v npm   > /dev/null 2>&1; then . <(npm completion); fi
-if command -v pyenv > /dev/null 2>&1; then eval "$(pyenv init -)"; fi
+if command -v pyenv > /dev/null 2>&1; then eval "$(pyenv init --path)"; fi
 if command -v pyenv > /dev/null 2>&1; then eval "$(pyenv virtualenv-init -)"; fi
 
 if command -v brew >/dev/null 2>&1; then
@@ -112,3 +97,6 @@ if command -v stack > /dev/null 2>&1; then
     stack ghc --package split --package safe --verbosity error -- -e "interact $ unlines . fmap ( $* ) . lines"
   }
 fi
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+. "$HOME/.cargo/env"

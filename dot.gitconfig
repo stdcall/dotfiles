@@ -18,6 +18,8 @@
 [github]
   user = stdcall
 
+[merge]
+  conflictstyle = diff3
 [core]
   autocrlf = false
   excludesfile = ~/.cvsignore

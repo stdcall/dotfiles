@@ -1,2 +1,5 @@
 :set prompt "\ESC[01;32mλ > \ESC[00m"
 :def hoogle \s -> return $ ":! hoogle --count=15 \"" ++ s ++ "\""
+
+-- Better errors
+:set -ferror-spans -freverse-errors -fprint-expanded-synonyms
