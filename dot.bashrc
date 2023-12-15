@@ -4,6 +4,9 @@ if [ -f /etc/bashrc ]; then
   . /etc/bashrc
 fi
 
+if command -v pyenv > /dev/null 2>&1; then eval "$(pyenv init --path)"; fi
+if command -v pyenv > /dev/null 2>&1; then eval "$(pyenv virtualenv-init -)"; fi
+
 [ -f ~/.yarc ] && . ~/.yarc
 export PS1=" λ \[\e[01;34m\]\W\[\e[00m\] \$(__git_ps1 '[%s]')\$(__arc_ps1) \[\e[01;32m\]→ \[\e[00m\] "
 
@@ -45,9 +48,6 @@ export GPG_TTY
 #if [ "${gnupg_SSH_AUTH_SOCK_by:-0}" -ne $$ ]; then
 #    export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
 #fi
-
-if command -v pyenv > /dev/null 2>&1; then eval "$(pyenv init --path)"; fi
-if command -v pyenv > /dev/null 2>&1; then eval "$(pyenv virtualenv-init -)"; fi
 
 if command -v brew >/dev/null 2>&1; then
   HOMEBREW_PREFIX=$(brew --prefix)
@@ -99,4 +99,3 @@ if command -v stack > /dev/null 2>&1; then
 fi
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
-. "$HOME/.cargo/env"

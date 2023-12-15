@@ -10,7 +10,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
   PATH=${PATH}:$ANDROID_HOME/emulator:$ANDROID_HOME/platform-tools
   #export PKG_CONFIG_PATH="/usr/local/opt/libffi/lib/pkgconfig"
   PATH=/Applications/Emacs.app/Contents/MacOS/bin/:${PATH}
-  [[ -d "/usr/local/opt/coreutils/libexec/gnubin" ]] && PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+  [[ -d "$HOMEBREW_PREFIX/opt/coreutils/libexec/gnubin" ]] && PATH="$HOMEBREW_PREFIX/opt/coreutils/libexec/gnubin:$PATH"
   PATH="/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH"
   PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
 fi
