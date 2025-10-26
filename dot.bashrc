@@ -42,6 +42,7 @@ alias df="df -h"
 alias du="du -h"
 alias g="git"
 alias vf='vim $(rg . | fzf | cut -d ":" -f 1)'
+
 GPG_TTY=$(tty)
 export GPG_TTY
 #unset SSH_AGENT_PID
@@ -72,30 +73,5 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-if command -v stack > /dev/null 2>&1; then
-  # apply function (String -> String) to entire stream
-  # echo "hello" | ghce Data.List.sort
-  ghce () {
-    stack ghc --package split --package safe --verbosity error -- -e "interact ( $* )"
-  }
+if command -v fzf >/dev/null 2>&1; then eval "$(fzf --bash)"; fi
 
-  # apply function ([String] -> [String]) to all lines
-  #
-  # from column 4 of passwd, show entries which contain an uppercase and don't contain a comma and consist of exactly two words
-  # cat /etc/passwd | ghcel 'filter ((==2).length.words) . '"filter (not.any (==','))"'. filter (any Data.Char.isUpper) . fmap ((!!4) . Data.List.Split.splitOn ":")'
-  #
-  # grep from stdin lines for which column 4 is numerically greater than 100
-  # ghcel "filter (\l -> (words l ^? ix 4) >>= readMay & maybe False (>100))"
-  ghcel () {
-    stack ghc --package split --package safe --verbosity error -- -e "interact $ unlines . ( $* ) . lines"
-  }
-
-  # fmap function (String -> String) to each line
-  # example: split on commas and select the 0th and 3rd columns
-  # echo "a,b,c,d,e,f" | ghcelf 'unwords . flip fmap [0,3] . (!!)  . Data.List.Split.splitOn ","'
-  ghcelf () {
-    stack ghc --package split --package safe --verbosity error -- -e "interact $ unlines . fmap ( $* ) . lines"
-  }
-fi
-
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash

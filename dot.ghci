@@ -3,3 +3,11 @@
 
 -- Better errors
 :set -ferror-spans -freverse-errors -fprint-expanded-synonyms
+
+-- Show types
+:set +t
+
+-- fzf for haskell, also add ~/.haskeline:
+-- bind: ctrl-R killline : f z f return
+-- keyseq: "^R" ctrl-R
+:def fzf const . pure $ ":! cat $HOME/.ghc/ghci_history | fzf --height 25"

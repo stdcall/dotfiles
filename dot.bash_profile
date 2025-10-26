@@ -28,10 +28,10 @@ export MANWIDTH=80
 export LESS="-R -i"
 export MAKEFLAGS="-j5"
 
-export LC_ALL=ru_RU.UTF-8
-export LANG=C
-export LC_MESSAGES=C
-export LANGUAGE=C
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+export LC_MESSAGES=en_US.UTF-8
+export LANGUAGE=en_US.UTF-8
 
 export CFLAGS="-O3 -pipe"
 export CXXFLAGS=${CFLAGS}

@@ -1,0 +1,2 @@
+bind: ctrl-R killline : f z f return
+keyseq: "^R" ctrl-R

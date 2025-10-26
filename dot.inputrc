@@ -1,0 +1,38 @@
+# See https://www.masteringemacs.org/article/keyboard-shortcuts-every-command-line-hacker-should-know-about-gnu-readline
+
+set keyseq-timeout 1200
+set colored-stats on
+set colored-completion-prefix on
+
+"\ep": previous-history
+"\en": next-history
+
+$if Bash
+"\e\C-o": dabbrev-expand
+# Wrap a command in $( ... | fzf)
+"\C-xF": "\C-e | fzf)\C-a(\C-a$\C-b\C-a"
+$endif
+
+$if Python
+
+# Wrap prompt in !help( ... )  (for PDB)
+"\C-xh": "\C-a!help(\C-e)"
+# Wrap prompt in dir( ... )
+"\C-xd": "\C-adir(\C-e)"
+
+$endif
+
+# binds to C-x q
+#"\C-xq": "Hello, World"
+
+
+# Discovery key bindings
+
+"\e\C-f": dump-functions
+"\e\C-v": dump-variables
+
+# Macros
+
+"\C-xP": print-last-kbd-macro
+
+
