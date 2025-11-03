@@ -42,9 +42,7 @@ export CXXFLAGS=${CFLAGS}
 #fi
 
 export PGHOST=localhost
-if [ -e $HOME/.nix-profile/etc/profile.d/nix.sh ]; then . $HOME/.nix-profile/etc/profile.d/nix.sh; fi
-
-PATH="$HOME/.cargo/bin:$PATH"
+if [ -e $HOME/.nix-profile/etc/profile.d/nix.sh ]; then source $HOME/.nix-profile/etc/profile.d/nix.sh; fi
 
 if [[ "$OSTYPE" == "linux-gnu" ]]; then
   br_script="~/bin/br"
@@ -52,14 +50,11 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
   br_script='${HOME}/Library/Preferences/org.dystroy.broot/launcher/bash/br'
 fi
 
-[ -f $br_script ] && . $br_script
+[ -f "$br_script" ] && . $br_script
 
-[ -f ~/.fzf.bash ] && . ~/.fzf.bash
 [ -f "${GHCUP_INSTALL_BASE_PREFIX:=$HOME}/.ghcup/env" ] && source "${GHCUP_INSTALL_BASE_PREFIX:=$HOME}/.ghcup/env"
 
-if [[ "$OSTYPE" == "darwin"* ]];then
-  [ -f ~/.bashrc ] && . ~/.bashrc
-fi
-
 export PATH
-. "$HOME/.cargo/env"
+[ -f "$HOME/.cargo/env" ] && source "$HOME/.cargo/env"
+
+[ -f ~/.bashrc ] && . ~/.bashrc

@@ -7,8 +7,17 @@ fi
 if command -v pyenv > /dev/null 2>&1; then eval "$(pyenv init --path)"; fi
 if command -v pyenv > /dev/null 2>&1; then eval "$(pyenv virtualenv-init -)"; fi
 
-[ -f ~/.yarc ] && . ~/.yarc
-export PS1=" λ \[\e[01;34m\]\W\[\e[00m\] \$(__git_ps1 '[%s]')\$(__arc_ps1) \[\e[01;32m\]→ \[\e[00m\] "
+if [[ "$OSTYPE" == "cygwin" ]]; then
+  GIT_PROMPT=/usr/share/git/completion/git-prompt.sh
+  [ -f $GIT_PROMPT ] && source $GIT_PROMPT
+fi
+
+if [ -f ~/.yarc ]; then
+  . ~/.yarc
+  export PS1=" λ \[\e[01;34m\]\W\[\e[00m\] \$(__git_ps1 '[%s]')\$(__arc_ps1) \[\e[01;32m\]→ \[\e[00m\] "
+else
+  export PS1=" λ \[\e[01;34m\]\W\[\e[00m\] \$(__git_ps1 '[%s]') \[\e[01;32m\]→ \[\e[00m\] "
+fi
 
 stty -ixon # enable C-s for search
 
@@ -74,4 +83,3 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 if command -v fzf >/dev/null 2>&1; then eval "$(fzf --bash)"; fi
-
