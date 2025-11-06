@@ -1,5 +1,9 @@
 # -*- mode: sh; -*-
 
+if command -v /opt/homebrew/bin/brew >/dev/null 2>&1; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
+
 PATH=$HOME/.local/bin:$HOME/bin:${PATH}
 export JUPYTER_GAP_EXECUTABLE=${HOME}/opt/gap/bin/x86_64-pc-linux-gnu-default64/gap
 PATH=${HOME}/.cabal/bin:${PATH}
