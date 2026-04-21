@@ -4,9 +4,6 @@ if [ -f /etc/bashrc ]; then
   . /etc/bashrc
 fi
 
-if command -v pyenv > /dev/null 2>&1; then eval "$(pyenv init --path)"; fi
-if command -v pyenv > /dev/null 2>&1; then eval "$(pyenv virtualenv-init -)"; fi
-
 if [[ "$OSTYPE" == "cygwin" ]]; then
   GIT_PROMPT=/usr/share/git/completion/git-prompt.sh
   [ -f $GIT_PROMPT ] && source $GIT_PROMPT
@@ -83,3 +80,4 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 if command -v fzf >/dev/null 2>&1; then eval "$(fzf --bash)"; fi
+if command -v zoxide >/dev/null 2>&1; then eval "$(zoxide init --cmd cd bash)"; fi

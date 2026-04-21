@@ -5,7 +5,6 @@ if command -v /opt/homebrew/bin/brew >/dev/null 2>&1; then
 fi
 
 PATH=$HOME/.local/bin:$HOME/bin:${PATH}
-export JUPYTER_GAP_EXECUTABLE=${HOME}/opt/gap/bin/x86_64-pc-linux-gnu-default64/gap
 PATH=${HOME}/.cabal/bin:${PATH}
 PATH=${HOME}/bin:${PATH}
 
@@ -17,6 +16,9 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
   [[ -d "$HOMEBREW_PREFIX/opt/coreutils/libexec/gnubin" ]] && PATH="$HOMEBREW_PREFIX/opt/coreutils/libexec/gnubin:$PATH"
   PATH="/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH"
   PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
+  export XDG_CONFIG_HOME=$HOME/.config
+  # export LDFLAGS="-L/usr/local/opt/llvm/lib"
+  # export CXXFLAGS="-march=native -mtune=native -O3 -pipe -I/usr/local/opt/llvm/include"
 fi
 
 if [[ "$OSTYPE" == "linux-gnu" ]]; then
@@ -25,6 +27,8 @@ fi
 
 export PYENV_ROOT="$HOME/.pyenv"
 PATH="$PYENV_ROOT/bin:$PATH"
+if command -v pyenv > /dev/null 2>&1; then eval "$(pyenv init --path)"; fi
+#if command -v pyenv > /dev/null 2>&1; then eval "$(pyenv virtualenv-init -)"; fi
 
 export EDITOR=emacsclient
 export MANPATH=${HOME}/share/man:${MANPATH}
@@ -40,12 +44,10 @@ export LANGUAGE=en_US.UTF-8
 export CFLAGS="-O3 -pipe"
 export CXXFLAGS=${CFLAGS}
 
-#if [[ "$OSTYPE" == "darwin"* ]]; then
-  #export LDFLAGS="-L/usr/local/opt/llvm/lib"
-  #export CXXFLAGS="-march=native -mtune=native -O3 -pipe -I/usr/local/opt/llvm/include"
-#fi
-
 export PGHOST=localhost
+
+export JUPYTER_GAP_EXECUTABLE=${HOME}/opt/gap/bin/x86_64-pc-linux-gnu-default64/gap
+
 if [ -e $HOME/.nix-profile/etc/profile.d/nix.sh ]; then source $HOME/.nix-profile/etc/profile.d/nix.sh; fi
 
 if [[ "$OSTYPE" == "linux-gnu" ]]; then

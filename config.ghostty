@@ -1,0 +1,13 @@
+# This is the configuration file for Ghostty.
+#
+# Run `ghostty +show-config --default --docs` to view a list of
+# all available config options and their default values.
+
+# font-family = Iosevka
+
+keybind = super+t=new_tab
+#keybind = super+arrow_left=previous_tab
+#keybind = super+arrow_right=next_tab
+keybind = super+[=previous_tab
+keybind = super+]=next_tab
+
