@@ -1,3 +1,4 @@
 config.yml
 dot.xmonad/*
 !dot.xmonad/xmonad.hs
+dot.bash_history
