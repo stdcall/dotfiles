@@ -1,65 +1,66 @@
-# NEWS
-All configurations this repository provided are now deprecated, except gitconfig and XCompose. I've switched from manual configutation to defaults as I find maintaining so many configs too hard.
-# Dotfiles
-Various configuration files for my main system. Take what you like.
-## Installation
-Clone into some direcotry
+# dotfiles
 
-`git clone git://github.com/stdcall/dotfiles.git $HOME/dotfiles`
+Персональные конфиги. Живут в Syncthing'е между машинами + git для истории.
 
-Edit config.yml for special options(usernames, passwords, etc...)
+## macOS bootstrap
 
-```bash
-cd $HOME/dotfiles
-cp config.yml.new config.yml
-vi config.yml
+На свежем Mac (или чтобы перепроверить состояние существующего):
+
+```sh
+bash ~/Sync/dotfiles/darwin-nix-bootstrap.sh
 ```
 
-use rake task to automatically create symlinks in your $HOME directory
+Скрипт идемпотентный. Что делает:
 
-`rake install`
+1. Проверяет / ставит Rosetta 2 (нужна для `nix-rosetta-builder`).
+2. Ставит Nix через Determinate-инсталлер.
+3. Создаёт симлинки `~/.config/nix` → `dot.config/nix`, `~/.config/nix-darwin` → `dot.config/nix-darwin`.
+4. Стейджит `dot.config/{nix,nix-darwin}` в git — без этого Nix-flake в git-репо не видит файлы.
+5. Перемещает стоковые `/etc/bashrc`, `/etc/zshrc` в `*.before-nix-darwin` (nix-darwin кладёт свои).
+6. Делает первую активацию: `sudo nix run nix-darwin -- switch --flake ~/.config/nix-darwin`.
+7. Симлинкует `/etc/nix-darwin` на `dot.config/nix-darwin` (чтобы работало короткое `sudo darwin-rebuild switch` без `--flake`).
 
-or link individual dotfiles to their actual location
-
-`ln -s $HOME/dotiles/.XCompose $HOME/`
-
-optionally, add it for root too
-
-```bash
-cd $HOME/dotfiles
-su -
-Password:
-rake install
-exit
+После — открой новый терминал, проверь:
+```sh
+darwin-rebuild --help
+nix --version
 ```
 
-updating later is simple 
+## Что управляется через Nix
 
-`cd $HOME/dotfiles && git pull`
+- `dot.config/nix/nix.conf` — пользовательские Nix-настройки (flakes enabled).
+- `dot.config/nix-darwin/flake.nix` + `configuration.nix` — системный macOS-конфиг + Linux-builder VM через `cpick/nix-rosetta-builder` (Apple Virt + Rosetta).
 
-##Notes
-###Loading .Xsession with LightDM(Ubuntu)
-I run a custom X session started by ~/.xsession.  On gdm, one can select
-"run Xclient script" or "Custom Xsession" as the session to launch, which 
-results in that script being run. If you aren't running a graphical login 
-manager, or if you start X directly from an init script, you can create symbolic
-link between .xsession and .xinitrc to start X by running startx script.
+## Обычные операции
 
-```bash
-ln -s ~/.xsession ~/.xinitrc
-startx
+```sh
+# Обновить inputs (nixpkgs, nix-darwin, nix-rosetta-builder)
+nix flake update --flake ~/.config/nix-darwin
+sudo darwin-rebuild switch
+
+# Применить локальные правки configuration.nix
+sudo darwin-rebuild switch
+
+# Перезапустить linux-builder VM (после изменения её конфига)
+sudo launchctl kill SIGTERM system/org.nixos.rosetta-builderd
 ```
 
-According to [launchpad bug report][1], lightdm still doesn't support ~/.xsession scripts in Ubuntu
-upstream. To deal with it, you may create /usr/share/xsessions/default.desktop
-and fill it with something similar to this
+## Структура
 
 ```
-[Desktop Entry]
-Version=1.0
-Name=Default Xsession
-Exec=default
-Type=Xsession
+~/Sync/dotfiles/
+├── darwin-nix-bootstrap.sh        # этот bootstrap
+├── dot.config/
+│   ├── nix/nix.conf
+│   └── nix-darwin/{flake.nix, configuration.nix, flake.lock}
+├── dot.bashrc, dot.bash_profile   # оболочка
+├── dot.gitconfig                  # git identity
+├── config.ghostty                 # терминал
+└── (разное историческое — см. git log)
 ```
 
-[1]: https://bugs.launchpad.net/debian/+source/lightdm/+bug/818864 "launchpad bug report"
+---
+
+## Legacy
+
+Старое содержимое этого README (до перехода на Nix) было про Xmonad / LightDM / Ubuntu — deprecated. Нужное смотри в `git log README.md`.

@@ -79,5 +79,8 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-if command -v fzf >/dev/null 2>&1; then eval "$(fzf --bash)"; fi
-if command -v zoxide >/dev/null 2>&1; then eval "$(zoxide init --cmd cd bash)"; fi
+have()   { command -v "$1" >/dev/null 2>&1; }
+
+if have fzf; then eval "$(fzf --bash)"; fi
+if have zoxide; then eval "$(zoxide init --cmd cd bash)"; fi
+if have direnv; then eval "$(direnv hook bash)"; fi
