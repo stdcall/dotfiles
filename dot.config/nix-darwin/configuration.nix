@@ -12,6 +12,12 @@
     options = "--delete-older-than 14d";
   };
 
+  environment.systemPath = [
+    "/Library/TeX/texbin"
+    "/opt/X11/bin"
+    "/Library/Apple/usr/bin"
+  ];
+
   # Linux builder via nix-rosetta-builder (from cpick/nix-rosetta-builder).
   # Uses Apple Virtualization framework + Lima, which natively mounts
   # Rosetta 2 into the guest VM at /run/rosetta → x86_64 userspace runs

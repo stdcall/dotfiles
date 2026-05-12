@@ -9,6 +9,8 @@ PATH=${HOME}/.cabal/bin:${PATH}
 PATH=${HOME}/bin:${PATH}
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
+  export INFOPATH=/usr/local/opt/flex/share/info:/usr/local/opt/bison/share/info:
+
   export ANDROID_HOME=$HOME/Library/Android/sdk
   PATH=${PATH}:$ANDROID_HOME/emulator:$ANDROID_HOME/platform-tools
   #export PKG_CONFIG_PATH="/usr/local/opt/libffi/lib/pkgconfig"
@@ -16,6 +18,12 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
   [[ -d "$HOMEBREW_PREFIX/opt/coreutils/libexec/gnubin" ]] && PATH="$HOMEBREW_PREFIX/opt/coreutils/libexec/gnubin:$PATH"
   PATH="/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH"
   PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
+  PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH"
+  # https://wiki.yandex-team.ru/yandexmobile/browser/ios/chromesources/buildscript/#ustanovkaiostools
+  # https://wiki.yandex-team.ru/yandexmobile/browser/ios/chromesources/buildscript/#ustanovkadepottools
+  # depot_tools должен быть после ios_tools!
+  PATH="$HOME/yandex/ios_tools/infra:$HOME/yandex/depot_tools:$PATH"
+
   export XDG_CONFIG_HOME=$HOME/.config
   # export LDFLAGS="-L/usr/local/opt/llvm/lib"
   # export CXXFLAGS="-march=native -mtune=native -O3 -pipe -I/usr/local/opt/llvm/include"
@@ -50,13 +58,6 @@ export JUPYTER_GAP_EXECUTABLE=${HOME}/opt/gap/bin/x86_64-pc-linux-gnu-default64/
 
 if [ -e $HOME/.nix-profile/etc/profile.d/nix.sh ]; then source $HOME/.nix-profile/etc/profile.d/nix.sh; fi
 
-if [[ "$OSTYPE" == "linux-gnu" ]]; then
-  br_script="~/bin/br"
-elif [[ "$OSTYPE" == "darwin"* ]]; then
-  br_script='${HOME}/Library/Preferences/org.dystroy.broot/launcher/bash/br'
-fi
-
-[ -f "$br_script" ] && . $br_script
 
 [ -f "${GHCUP_INSTALL_BASE_PREFIX:=$HOME}/.ghcup/env" ] && source "${GHCUP_INSTALL_BASE_PREFIX:=$HOME}/.ghcup/env"
 
