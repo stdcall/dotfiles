@@ -1,4 +1,5 @@
 # -*- mode: sh; -*-
+# shellcheck shell=bash
 
 if [ -f /etc/bashrc ]; then
   . /etc/bashrc
@@ -6,10 +7,12 @@ fi
 
 if [[ "$OSTYPE" == "cygwin" ]]; then
   GIT_PROMPT=/usr/share/git/completion/git-prompt.sh
-  [ -f $GIT_PROMPT ] && source $GIT_PROMPT
+  # shellcheck source=/dev/null
+  [ -f "$GIT_PROMPT" ] && source "$GIT_PROMPT"
 fi
 
 if [ -f ~/.yarc ]; then
+  # shellcheck source=/dev/null
   . ~/.yarc
   export PS1=" λ \[\e[01;34m\]\W\[\e[00m\] \$(__git_ps1 '[%s]')\$(__arc_ps1) \[\e[01;32m\]→ \[\e[00m\] "
 else
@@ -21,6 +24,8 @@ stty -ixon # enable C-s for search
 HISTCONTROL=erasedups:ignorespace
 HISTSIZE=20000
 HISTFILESIZE=20000
+HISTTIMEFORMAT='%F %T '
+HISTIGNORE="*<<'EOF'*:*<<'PY'*:*<<-'EOF'*:*<<-'PY'*:ls *"
 shopt -s histappend
 shopt -s direxpand
 shopt -s checkwinsize
@@ -33,7 +38,7 @@ bind '"\e[B": history-search-forward'
 # shopt -s globstar
 
 function kill! {
-  pgrep $@ | xargs kill -9
+  pgrep "$@" | xargs kill -9
 }
 
 alias cleantex='rm *.aux *.dvi *.pdfsync *.log'
@@ -62,6 +67,7 @@ if command -v brew >/dev/null 2>&1; then
     source "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh"
   else
     for COMPLETION in "${HOMEBREW_PREFIX}/etc/bash_completion.d/"*; do
+      # shellcheck source=/dev/null
       [[ -r "$COMPLETION" ]] && source "$COMPLETION"
     done
   fi
