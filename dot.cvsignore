@@ -3,3 +3,5 @@ tramp
 *.log
 *.aux
 *.o
+
+**/.claude/settings.local.json

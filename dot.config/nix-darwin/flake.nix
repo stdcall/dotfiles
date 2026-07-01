@@ -16,12 +16,22 @@
     };
   };
 
-  outputs = { nix-darwin, nix-rosetta-builder, ... }: {
-    darwinConfigurations."nkhodyunya-osx" = nix-darwin.lib.darwinSystem {
-      modules = [
-        nix-rosetta-builder.darwinModules.default
-        ./configuration.nix
-      ];
+  outputs = { nix-darwin, nix-rosetta-builder, ... }:
+    let
+      mkSystem = nix-darwin.lib.darwinSystem {
+        modules = [
+          nix-rosetta-builder.darwinModules.default
+          ./configuration.nix
+        ];
+      };
+      # Bootstrap-профиль для первой активации на свежей macOS — без
+      # nix-rosetta-builder, чтобы разорвать chicken-and-egg. См. bootstrap.nix.
+      mkBootstrap = nix-darwin.lib.darwinSystem {
+        modules = [ ./bootstrap.nix ];
+      };
+    in {
+      darwinConfigurations."bootstrap"      = mkBootstrap;
+      darwinConfigurations."nkhodyunya-osx" = mkSystem;
+      darwinConfigurations."nagisa-osx"     = mkSystem;
     };
-  };
 }

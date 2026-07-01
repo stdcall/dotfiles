@@ -25,7 +25,7 @@ HISTCONTROL=erasedups:ignorespace
 HISTSIZE=20000
 HISTFILESIZE=20000
 HISTTIMEFORMAT='%F %T '
-HISTIGNORE="*<<'EOF'*:*<<'PY'*:*<<-'EOF'*:*<<-'PY'*:ls *"
+HISTIGNORE="*<<'EOF'*:*<<'PY'*:*<<-'EOF'*:*<<-'PY'*"
 shopt -s histappend
 shopt -s direxpand
 shopt -s checkwinsize
@@ -90,3 +90,10 @@ have()   { command -v "$1" >/dev/null 2>&1; }
 if have fzf; then eval "$(fzf --bash)"; fi
 if have zoxide; then eval "$(zoxide init --cmd cd bash)"; fi
 if have direnv; then eval "$(direnv hook bash)"; fi
+
+# The next line updates PATH for CLI.
+if [ -f '/home/nkhodyunya/yandex-cloud/path.bash.inc' ]; then source '/home/nkhodyunya/yandex-cloud/path.bash.inc'; fi
+
+# The next line enables shell command completion for yc.
+if [ -f '/home/nkhodyunya/yandex-cloud/completion.bash.inc' ]; then source '/home/nkhodyunya/yandex-cloud/completion.bash.inc'; fi
+

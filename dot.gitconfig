@@ -20,6 +20,7 @@
 
 [merge]
   conflictstyle = diff3
+	ff = only
 [core]
   autocrlf = false
   excludesfile = ~/.cvsignore

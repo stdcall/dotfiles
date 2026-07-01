@@ -1,0 +1,111 @@
+#!/usr/bin/env python3
+"""Merge syncthing conflict copies of dot.bash_history back into one file.
+
+Handles both old (untimestamped) and new (HISTTIMEFORMAT-enabled) history
+files. New entries have `#<unix_ts>` markers preceding each command. Old
+entries without markers get a fallback timestamp derived from the file's
+mtime so they sort approximately by file age.
+
+Strategy:
+  - Parse each file into (timestamp, command) tuples.
+  - Concatenate dot.bash_history + all dot.sync-conflict-*.bash_history.
+  - Dedupe: keep the entry with the MAX timestamp for each unique command
+    (mirrors HISTCONTROL=erasedups, with "most recent wins").
+  - Sort chronologically and rewrite dot.bash_history in place (preserves
+    inode, so shells holding the file open with histappend still write to
+    the right place).
+  - Delete conflict files only after the write succeeds.
+
+Safe to re-run: a no-op when there are no conflict files.
+"""
+
+from __future__ import annotations
+
+import re
+import sys
+from pathlib import Path
+
+DOTFILES = Path(__file__).resolve().parent
+MAIN = DOTFILES / "dot.bash_history"
+CONFLICT_GLOB = "dot.sync-conflict-*.bash_history"
+
+# Bash writes timestamp lines as `#<unix_ts>` (10+ digits, no other chars)
+# when HISTTIMEFORMAT is set. The 10-digit floor avoids treating literal
+# `#1` style comments as timestamps.
+TS_RE = re.compile(r"^#(\d{10,})$")
+
+
+def parse(path: Path) -> list[tuple[int, str]]:
+    """Return list of (timestamp, command).
+
+    Untimestamped lines (history written before HISTTIMEFORMAT was enabled)
+    get a fallback timestamp derived from file mtime: the last line gets
+    mtime, earlier lines get mtime - N. Approximate but preserves intra-file
+    order and keeps old history sorted before newer real-timestamped entries
+    from other files.
+    """
+    raw = [l for l in path.read_text(encoding="utf-8", errors="replace").splitlines() if l]
+    entries: list[tuple[int | None, str]] = []
+    pending_ts: int | None = None
+    for line in raw:
+        m = TS_RE.match(line)
+        if m:
+            pending_ts = int(m.group(1))
+            continue
+        entries.append((pending_ts, line))
+        pending_ts = None
+
+    mtime = int(path.stat().st_mtime)
+    n = len(entries)
+    return [
+        (ts if ts is not None else mtime - (n - i - 1), cmd)
+        for i, (ts, cmd) in enumerate(entries)
+    ]
+
+
+def main() -> int:
+    if not MAIN.exists():
+        print(f"error: {MAIN} does not exist", file=sys.stderr)
+        return 1
+
+    conflicts = sorted(DOTFILES.glob(CONFLICT_GLOB), key=lambda p: p.stat().st_mtime)
+    if not conflicts:
+        print("no sync-conflict files found, nothing to merge")
+        return 0
+
+    sources = conflicts + [MAIN]
+    all_entries: list[tuple[int, str]] = []
+    print("merging:")
+    for p in sources:
+        entries = parse(p)
+        print(f"  {p.name:<60} {len(entries):>7} entries")
+        all_entries.extend(entries)
+
+    best: dict[str, int] = {}
+    for ts, cmd in all_entries:
+        if cmd not in best or ts > best[cmd]:
+            best[cmd] = ts
+
+    merged = sorted(best.items(), key=lambda kv: (kv[1], kv[0]))
+    print(f"\n{len(all_entries)} total entries -> {len(merged)} unique commands")
+
+    payload_lines: list[str] = []
+    for cmd, ts in merged:
+        payload_lines.append(f"#{ts}")
+        payload_lines.append(cmd)
+    payload = "\n".join(payload_lines) + "\n"
+
+    with MAIN.open("r+", encoding="utf-8") as f:
+        f.seek(0)
+        f.truncate()
+        f.write(payload)
+
+    print(f"wrote {MAIN.name}")
+    for p in conflicts:
+        p.unlink()
+        print(f"removed {p.name}")
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

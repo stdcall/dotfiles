@@ -5,12 +5,18 @@
 
 # font-family = Iosevka
 
+scrollback-limit = 10000
+
 keybind = super+t=new_tab
 #keybind = super+arrow_left=previous_tab
 #keybind = super+arrow_right=next_tab
 keybind = super+[=previous_tab
 keybind = super+]=next_tab
 
-keybind = ctrl+v=paste_from_clipboard  
-keybind = performable:ctrl+c=copy_to_clipboard
+#keybind = ctrl+physical:v=paste_from_clipboard
+#keybind = performable:ctrl+physical:c=copy_to_clipboard
+keybind = ctrl+KeyV=paste_from_clipboard
+keybind = performable:ctrl+KeyC=copy_to_clipboard
+
+macos-option-as-alt = left
 
